@@ -285,7 +285,7 @@ namespace esphome{
                 meanTemp = total/((sizeof(pixels) / sizeof(pixels[0])));
 
                  ThermalImageToWeb(pixels,camColors,  min_v,  max_v); // Save the image on the local files
-                if (max_v > max_cam_v | max_v < min_cam_v) {
+                if (max_v > max_cam_v || max_v < min_cam_v) {
                     ESP_LOGE(TAG, "MLX READING VALUE ERRORS");
                     dataValid = false ;
                 } else {
