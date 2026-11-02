@@ -88,6 +88,11 @@ async def to_code(config):
     paren = await cg.get_variable(config[CONF_WEB_SERVER_BASE_ID])
     var = cg.new_Pvariable(config[CONF_ID], paren)
     await cg.register_component(var, config)
+    # ESPHome 2026.x builds arduino-esp32 with its bundled libraries left out
+    # unless requested; the driver uses Wire, the BMP is written to SPIFFS.
+    cg.add_library("Wire", None)
+    cg.add_library("FS", None)
+    cg.add_library("SPIFFS", None)
     #var =  cg.new_Pvariable(config[CONF_ID])
     #await cg.register_component(var, config)
     #await i2c.register_i2c_device(var, config)
