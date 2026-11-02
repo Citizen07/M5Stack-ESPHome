@@ -93,6 +93,10 @@ async def to_code(config):
     cg.add_library("Wire", None)
     cg.add_library("FS", None)
     cg.add_library("SPIFFS", None)
+    # Arduino's FS layer links opendir/mkdir/rmdir, which ESPHome 2026.x
+    # compiles out (CONFIG_VFS_SUPPORT_DIR) unless a component asks.
+    from esphome.components.esp32 import require_vfs_dir
+    require_vfs_dir()
     #var =  cg.new_Pvariable(config[CONF_ID])
     #await cg.register_component(var, config)
     #await i2c.register_i2c_device(var, config)
